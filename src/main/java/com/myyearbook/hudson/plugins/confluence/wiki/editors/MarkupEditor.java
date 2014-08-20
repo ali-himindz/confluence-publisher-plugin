@@ -40,6 +40,7 @@ public abstract class MarkupEditor implements Describable<MarkupEditor>, Extensi
      * Markup generator
      */
     public MarkupGenerator generator;
+    public BuildListener mlistener;
 
     /**
      * Creates a generic markup editor
@@ -49,6 +50,10 @@ public abstract class MarkupEditor implements Describable<MarkupEditor>, Extensi
     @DataBoundConstructor
     public MarkupEditor(final MarkupGenerator generator) {
         this.generator = generator;
+    }
+    
+    public String getData(){
+    	return "";
     }
 
     /**
@@ -65,9 +70,18 @@ public abstract class MarkupEditor implements Describable<MarkupEditor>, Extensi
             final BuildListener listener, final String content, boolean isNewFormat, List<RemoteAttachment> remoteAttachments)
             throws TokenNotFoundException {
         final String generated = generator.generateMarkup(build, listener, remoteAttachments);
-
+        this.mlistener = listener;
+        log(listener, "content: " + content);
+        log(listener," generated="+generated);
+        log(listener," isNewFormat="+isNewFormat);
+        log(listener," data="+getData());
         // Perform the edit
-        return this.performEdits(listener, content, generated, isNewFormat);
+        
+        String result= this.performEdits(listener, content, generated, isNewFormat);
+        
+        log(listener," result="+result);
+
+        return result;
     }
 
     /**
@@ -170,4 +184,7 @@ public abstract class MarkupEditor implements Describable<MarkupEditor>, Extensi
 
         private static final long serialVersionUID = -5759944314599051961L;
     }
+    
+    
+
 }

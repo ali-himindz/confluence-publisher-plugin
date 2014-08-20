@@ -39,6 +39,10 @@ public class BetweenTokensEditor extends MarkupEditor {
         this.endMarkerToken = unquoteToken(Util.fixEmptyAndTrim(endMarkerToken));
     }
 
+    public String getData(){
+    	return "startMarkerToken="+startMarkerToken+"\n"+
+    			"endMarkerToken="+endMarkerToken+"\n";
+    }
     /**
      * Inserts the generated content in the section between the {@link #startMarkerToken} and
      * {@link #endMarkerToken}.
@@ -52,10 +56,8 @@ public class BetweenTokensEditor extends MarkupEditor {
     public String performEdits(final BuildListener listener, final String content,
             final String generated, final boolean isNewFormat) throws TokenNotFoundException {
         final StringBuffer sb = new StringBuffer(content);
-
         final int markerStart = content.indexOf(startMarkerToken);
         final int contentStart = markerStart + startMarkerToken.length();
-
         if (markerStart < 0) {
             throw new TokenNotFoundException(
                     "Start-marker token could not be found in the page content: "
