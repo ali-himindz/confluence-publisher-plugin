@@ -40,7 +40,7 @@ public abstract class MarkupEditor implements Describable<MarkupEditor>, Extensi
      * Markup generator
      */
     public MarkupGenerator generator;
-    public BuildListener mlistener;
+    //public BuildListener mlistener;
 
     /**
      * Creates a generic markup editor
@@ -70,7 +70,7 @@ public abstract class MarkupEditor implements Describable<MarkupEditor>, Extensi
             final BuildListener listener, final String content, boolean isNewFormat, List<RemoteAttachment> remoteAttachments)
             throws TokenNotFoundException {
         final String generated = generator.generateMarkup(build, listener, remoteAttachments);
-        this.mlistener = listener;
+      //  this.mlistener = listener;
         log(listener, "content: " + content);
         log(listener," generated="+generated);
         log(listener," isNewFormat="+isNewFormat);
